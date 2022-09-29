@@ -1,3 +1,4 @@
+import random
 import string
 import time
 
@@ -51,14 +52,20 @@ def main():
     end_text = open('endtext.txt', 'r').read().split('\n\n')
 
     clear_screen()
-    answer = input('Target word: ').lower()
-    
-    while answer not in words:
-        clear_screen()
-        input('Please enter a valid English word\n\n\033[37mPress Enter to continue\033[0m')
+    single_player = input('Have the computer pick a random word? [Y/n] ').lower() != 'n'
 
+    if single_player:
+        answer = list(words)[random.randrange(len(words))]
+    else:
         clear_screen()
-        answer = input('Target word: ')
+        answer = input('Target word: ').lower()
+    
+        while answer not in words:
+            clear_screen()
+            input('Please enter a valid English word\n\n\033[37mPress Enter to continue\033[0m')
+
+            clear_screen()
+            answer = input('Target word: ')
      
     game = Game(answer, hangmen)
     game.draw(fancy = True)
@@ -83,6 +90,9 @@ def main():
         print(end_text[0])
     elif game.status() == 'lost':
         print(end_text[1])
+        time.sleep(2)
+        clear_screen()
+        print(f'The correct word was \"{game.answer}\"')
 
     time.sleep(2)
 
