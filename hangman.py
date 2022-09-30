@@ -80,7 +80,7 @@ def draw_entry(entry):
                     out += f'          \033[37m- "{antonym}"\033[0m\n'
             out += '\n'
 
-    out += f'\033[4mSources\033[0m\n'
+    out += f'\033[4mSources\033[0m\n\n'
     for source in entry['sourceUrls']:
         out += f'    \033[37m  {source}\033[0m\n'
 
@@ -120,7 +120,7 @@ def main():
     entry = entry[0]
 
     game = Game(answer, hangmen)
-    game.draw(fancy = False)
+    game.draw(fancy = True)
 
     while game.status() == 'ongoing':
         guess = input('\nNext guess: ').lower()
